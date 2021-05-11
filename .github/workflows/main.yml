@@ -25,7 +25,7 @@ jobs:
     steps:
       - name: print ${IMAGE_TAG}
         run: |
-          ref=${GITHUB_REF} && ${{ env.GITHUB_REF = "${ref//refs\/heads\//}" }}
+          ref=${GITHUB_REF} && export GITHUB_REF="${ref//refs\/heads\//}"
           echo  ${{ env.GITHUB_REF }}
       # - name: Checkout
       #   uses: actions/checkout@v2
