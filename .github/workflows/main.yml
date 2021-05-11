@@ -3,6 +3,7 @@ name: Deploy to Amazon ECS
 on: push
 
 env:
+  GITHUB_REF: ${{ github.ref }}    # set this to your preferred AWS region, e.g. us-west-1
   AWS_REGION: ${{ secrets.MY_AWS_REGION }}    # set this to your preferred AWS region, e.g. us-west-1
   ECR_REPOSITORY: ${{ secrets.MY_ECR_REPOSITORY }}           # set this to your Amazon ECR repository name
   ECS_SERVICE: ${{ secrets.MY_ECS_SERVICE }}                # set this to your Amazon ECS service name
@@ -27,8 +28,8 @@ jobs:
           ref=${{ github.ref }} && export IMAGE_TAG="${ref//refs\/heads\//}"
       - name: print ${IMAGE_TAG}
         run: |
-          echo ${IMAGE_TAG}
-           echo ${{ env.IMAGE_TAG }}
+          echo ${GITHUB_REF}
+          echo ${{ env.GITHUB_REF }}
       # - name: Checkout
       #   uses: actions/checkout@v2
       # - name: Configure AWS credentials
