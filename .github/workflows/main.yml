@@ -17,7 +17,6 @@ defaults:
   run:
     shell: bash
     run: |
-      ref=${GITHUB_REF} && export IMAGE_TAG="${ref//refs\/heads\//}"
 
 jobs:
   deploy:
@@ -27,8 +26,8 @@ jobs:
     steps:
       - name: print ${IMAGE_TAG}
         run: |
-          echo ${IMAGE_TAG}
-          echo ${{ env.GITHUB_REF }}
+          ref=${GITHUB_REF} && ${{ env.GITHUB_REF = "${ref//refs\/heads\//}" }}
+          echo  ${{ env.GITHUB_REF }}
       # - name: Checkout
       #   uses: actions/checkout@v2
       # - name: Configure AWS credentials
