@@ -16,7 +16,7 @@ jobs:
       - name: Set tag var
         id: vars
         run: |
-          echo ::set-output name=version::$(echo ${{ github.ref }} | cut -d'/' -f3)
+          echo ::set-output name=version::$(echo ${{ github.ref }} | cut -d'/' -f3 | tr 'v' ' ')
       - name: Show tag var
         run: |
           echo ${{ steps.vars.outputs.version }}
