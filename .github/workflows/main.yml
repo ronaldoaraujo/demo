@@ -14,7 +14,10 @@ env:
                                                # containerDefinitions section of your task definition
 
 defaults:
-  run: ref=${{ env.GITHUB_REF }} && export IMAGE_TAG="${ref//refs\/heads\//}"
+  run:
+    shell: bash
+    run: |
+      ref=${GITHUB_REF} && export IMAGE_TAG="${ref//refs\/heads\//}"
 
 jobs:
   deploy:
