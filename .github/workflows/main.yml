@@ -25,9 +25,8 @@ jobs:
       - name: Set tag var
         id: vars
         run: |
-          ref=${{ github.ref }} && export BRANCH="${ref//refs\/heads\//}"
-          echo ::set-output name=branch::${BRANCH}
-      - name: print ${IMAGE_TAG}
+          echo ::set-output name=branch::$(echo ${{ github.ref }} | cut -d'/' -f3)
+      - name: print
         run: |
           echo ${{ steps.vars.outputs.branch }}
       # - name: Checkout
