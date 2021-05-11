@@ -9,7 +9,7 @@ WORKDIR $RAILS_ROOT
 
 ENV PORT=5000
 
-ADD Gemfile* .
+ADD Gemfile* ./
 
 RUN gem install bundler:2.2.15 \
     && bundle install --jobs 3
