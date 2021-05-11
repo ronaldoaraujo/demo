@@ -25,9 +25,10 @@ jobs:
       - name: export env
         run: |
           ref=${{ github.ref }} && export IMAGE_TAG="${ref//refs\/heads\//}"
-      - name: print $IMAGE_TAG
+      - name: print ${IMAGE_TAG}
         run: |
-          echo $IMAGE_TAG
+          echo ${IMAGE_TAG}
+           echo ${{ env.IMAGE_TAG }}
       # - name: Checkout
       #   uses: actions/checkout@v2
       # - name: Configure AWS credentials
