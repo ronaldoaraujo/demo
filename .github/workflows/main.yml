@@ -16,7 +16,7 @@ jobs:
       - name: Set tag var
         id: vars
         run: |
-          echo ::set-output name=version::$(echo ${{ github.ref }} | cut -d'/' -f3 | tr 'v' ' ')
+          echo ::set-output name=version::$(echo ${{ github.ref }} | cut -d '/' -f3 | tr 'v' ' ')
       - name: Checkout
         uses: actions/checkout@v2
       - name: Configure AWS credentials
