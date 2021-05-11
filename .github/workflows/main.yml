@@ -16,7 +16,6 @@ env:
 defaults:
   run:
     shell: bash
-    run: |
 
 jobs:
   deploy:
