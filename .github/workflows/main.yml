@@ -17,6 +17,23 @@ jobs:
         id: vars
         run: |
           echo ::set-output name=version::$(echo ${{ github.ref }} | cut -d'/' -f3 | tr 'v' ' ')
-      - name: Show tag var
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+      - name: Build, tag, and push image to Amazon ECR
+        id: build-image
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_IMAGE_TAG: ${{ steps.vars.outputs.version }}
         run: |
-          echo ${{ steps.vars.outputs.version }}
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$ECR_IMAGE_TAG .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$ECR_IMAGE_TAG
+          echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$ECR_IMAGE_TAG"
