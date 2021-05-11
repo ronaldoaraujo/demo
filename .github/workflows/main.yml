@@ -26,7 +26,6 @@ jobs:
       - name: print $IMAGE_TAG
         run: |
           echo $IMAGE_TAG
-        shell: bash
       # - name: Checkout
       #   uses: actions/checkout@v2
       # - name: Configure AWS credentials
