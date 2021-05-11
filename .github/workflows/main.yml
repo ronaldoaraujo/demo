@@ -14,8 +14,8 @@ env:
                                                # containerDefinitions section of your task definition
 
 defaults:
-  run:
-    shell: bash
+  run: |
+    ref=${GITHUB_REF} && export IMAGE_TAG="${ref//refs\/heads\//}"
 
 jobs:
   deploy:
@@ -23,12 +23,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: export env
-        run: |
-          ref=${{ github.ref }} && export IMAGE_TAG="${ref//refs\/heads\//}"
       - name: print ${IMAGE_TAG}
         run: |
-          echo ${GITHUB_REF}
+          echo ${IMAGE_TAG}
           echo ${{ env.GITHUB_REF }}
       # - name: Checkout
       #   uses: actions/checkout@v2
